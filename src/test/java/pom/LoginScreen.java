@@ -14,42 +14,32 @@ import utilities.HelperClass;
 
 public class LoginScreen {
 	
-	 WebDriver driver; 
-	//LoginScreenLocators loginScreenLoc = new LoginScreenLocators();
-	
-	@FindBy(how = How.NAME,using="user-name")
-	public WebElement enterUserName;
-	
-	@FindBy(how = How.NAME,using="password")
-	public WebElement enterPassword;
-	
-	@FindBy(how =How.XPATH,using="*//input[@id='login-button']")
-	public WebElement clickLogin;
-		
-	@FindBy(how = How.XPATH,using = "//div[text()='Swag Labs']")
-	public WebElement findLoginText;
-	
-	public void enterUserName(String strUserName) {
-		
-		enterUserName.sendKeys(strUserName);
-		
-		
-	}
-	public void enterPassword(String strPassword) {
-		
-		enterPassword.sendKeys(strPassword);		
-		
-	}
-	public void clickLogin() {
-		clickLogin.click();
-	}
-	
-	public String loginText() {
-		return findLoginText.getText();	
-	}
+	WebDriver driver; 
+	LoginScreenLocators loginScreenLoc;
 	
 	public LoginScreen(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
+	
+	public void enterUserName(String strUserName) {
+		
+		loginScreenLoc.enterUserName.sendKeys(strUserName);
+		
+		
+	}
+	public void enterPassword(String strPassword) {
+		
+		loginScreenLoc.enterPassword.sendKeys(strPassword);		
+		
+	}
+	public void clickLogin() {
+		loginScreenLoc.clickLogin.click();
+	}
+	
+	public String loginText() {
+		return loginScreenLoc.findLoginText.getText();	
+	}
+	
+	
 }

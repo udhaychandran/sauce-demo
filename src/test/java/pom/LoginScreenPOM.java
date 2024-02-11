@@ -18,16 +18,18 @@ public class LoginScreenPOM {
 	//LoginScreenLocators loginScreenLoc = new LoginScreenLocators();
 	By userName = By.name("user-name");
 	By password = By.name("password");
-	By login = By.xpath("*//input[@id='login-button']");
-	
+	By login = By.name("login-button");
+	By loginText = By.xpath("loginTxt");
+	By loginMenu = By.name("react-burger-menu-btn");
+	By logout = By.id("logout_sidebar_link");
 	public LoginScreenPOM(WebDriver driver) {
 		this.driver = driver;
 	}
 		
 	
-	public void enterUserName(String strUserName) {
+	public void enterUserName(String strUsername) {
 		
-		driver.findElement(userName).sendKeys(strUserName);		
+		driver.findElement(userName).sendKeys(strUsername);		
 		
 	}
 	public void enterPassword(String strPassword) {
@@ -38,6 +40,14 @@ public class LoginScreenPOM {
 	public void clickLogin() {
 		driver.findElement(login).click();
 	}
-	
+	public String loginText() {
+		return driver.findElement(loginText).getText();
+	}
+	public void postLoginElement() {
+		driver.findElement(loginMenu).click();
+	}
+	public void clickLogout() {
+		driver.findElement(logout).click();
+	}
 	
 }

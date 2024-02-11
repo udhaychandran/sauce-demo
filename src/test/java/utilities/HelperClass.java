@@ -23,13 +23,11 @@ public class HelperClass {
 	public static void openPage(String url) {
 		driver.get(url);
 	}
-	public static SearchContext setUpDriver() {
-		if(helperClass==null)
-		{
-			helperClass = new HelperClass();
-		}
-		return setUpDriver();
+	
+	public static WebDriver getDriver() {
+		return driver;
 	}
+	
 	public static void tearDow() {
 		if (driver!=null) {
 			driver.quit();
