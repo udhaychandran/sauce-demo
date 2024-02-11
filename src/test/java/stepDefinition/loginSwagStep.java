@@ -5,8 +5,11 @@ import java.time.Duration;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -15,12 +18,14 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import pom.LoginScreen;
 import pom.LoginScreenPOM;
 import utilities.HelperClass;
-import utilities.SetUpTearDown;
+
 
 public class loginSwagStep{
 	WebDriver driver;
-	SetUpTearDown setupTearDown;
-	LoginScreen loginScreen;
+	//SetUpTearDown setupTearDown;
+	LoginScreenPOM loginScreenPOM;
+	WebDriverWait wait = null;
+	WebElement element;
 	@Given("I launch the {string} of the application")
 	public void i_launch_the_of_the_application(String url) throws InterruptedException {
 		
@@ -35,17 +40,21 @@ public class loginSwagStep{
 	@When("I enter {string} and {string}")
 	public void i_enter_and(String username, String password) { 
 		
-		loginScreen = new LoginScreen(driver);
-		loginScreen.enterUserName(username);
-		loginScreen.enterPassword(password);
-		loginScreen.clickLogin();
+		loginScreenPOM = new LoginScreenPOM(driver);
+		loginScreenPOM.enterUserName(username);
+		loginScreenPOM.enterPassword(password);
+		loginScreenPOM.clickLogin();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 	}
 
 
 	@Then("I should be able to login successfully.")
 	public void i_should_be_able_to_login_successfully() 
 	{
-		Assert.assertEquals(loginScreen.loginText(), "Swag Labs");
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+		loginScreenPOM.postLoginElement();
+		loginScreenPOM.clickLogout();		
+		driver.quit();
 	}
 
 }
